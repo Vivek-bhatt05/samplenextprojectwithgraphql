@@ -1,7 +1,4 @@
-import { getAllEventsData } from "@/helpers/apicalling";
-
-const Home = (props) => {
-    console.log(props.events);
+const Home = () => {
 
   return (
     <div>
@@ -11,16 +8,16 @@ const Home = (props) => {
 }
 
 
-export async function getStaticProps(){
+// export async function getStaticProps(){
 
-    const allData = await getAllEventsData()
+//     const allData = await getAllEventsData()
   
-    return {
-      props: {
-        events: allData
-      }
-      // revalidate:60
-    }
-  }
+//     return {
+//       props: {
+//         events: allData
+//       }
+//       // revalidate:60
+//     }
+//   }
 
 export default Home
