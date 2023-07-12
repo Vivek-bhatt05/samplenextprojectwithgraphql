@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React,{useState} from 'react'
 
 export default function Login() {
@@ -33,8 +34,10 @@ export default function Login() {
                  onChange={handleChange}
                  required
                  />
+                 <Link href="/signup"><p>Dont have an account ?</p></Link> 
                  <button type="submit">Login</button>
             </form>
+
         </div>
     )
 }

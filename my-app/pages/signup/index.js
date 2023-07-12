@@ -1,7 +1,10 @@
+import Link from 'next/link'
 import React, { useState } from 'react'
+import { useRouter } from 'next/navigation';
 
 const Signup = () => {
 
+    const { push } = useRouter();
     const [formData,setFormData] = useState({})
     
     const handleChange = (e)=>{
@@ -15,6 +18,7 @@ const Signup = () => {
     const handleSubmit = (e)=>{
         e.preventDefault()
         console.log(formData)
+        push('/login')
     }
   return (
     <div>
@@ -48,6 +52,7 @@ const Signup = () => {
                  onChange={handleChange}
                  required
                  />
+                 <Link href="/login"><p>Already have an account ?</p></Link> 
                  <button className="btn #673ab7 deep-purple" type="submit">Submit</button>
             </form>
       

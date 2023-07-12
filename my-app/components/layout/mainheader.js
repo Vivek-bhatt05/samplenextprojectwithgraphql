@@ -21,7 +21,7 @@ function MainHeader () {
                 <Link href='/profile'>Profile</Link>
             </li>
             <li>
-                <Link href='/quotes'>Quotes</Link>
+                <Link href='/createquotes'>Create</Link>
             </li>
         </ul>
        </nav>
