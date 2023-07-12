@@ -1,11 +1,15 @@
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation';
+import { useMutation } from '@apollo/client';
 
 const Signup = () => {
 
     const { push } = useRouter();
     const [formData,setFormData] = useState({})
+    // const [signupUser,{data,loading,error}] = useMutation(SIGNUP_USer)
+
+    // if(loading) return <h1>Loading</h1>
     
     const handleChange = (e)=>{
         setFormData({

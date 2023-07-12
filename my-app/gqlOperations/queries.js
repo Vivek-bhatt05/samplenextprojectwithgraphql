@@ -11,4 +11,15 @@ query getAllQuotes{
     }
   }
 `
+export const GET_ALL_USERS= gql`
+query getAllUsers{
+    users{
+      _id
+      firstName
+      lastName
+      email
+    }
+  }
+`
+
 
