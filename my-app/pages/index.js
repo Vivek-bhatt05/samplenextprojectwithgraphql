@@ -1,4 +1,9 @@
-const Home = () => {
+import { getAllQuotesData } from "@/helpers/apicalling"
+import { useEffect } from "react"
+
+const Home = (props) => {
+
+    console.log(props.quotes)
 
   return (
     <div>
@@ -15,16 +20,16 @@ const Home = () => {
 }
 
 
-// export async function getStaticProps(){
+export async function getStaticProps(){
 
-//     const allData = await getAllEventsData()
+    const allData = await getAllQuotesData()
   
-//     return {
-//       props: {
-//         events: allData
-//       }
-//       // revalidate:60
-//     }
-//   }
+    return {
+      props: {
+        quotes: allData
+      },
+      revalidate:60
+    }
+  }
 
 export default Home
