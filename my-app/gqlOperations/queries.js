@@ -21,5 +21,32 @@ query getAllUsers{
     }
   }
 `
+export const GET_ALL_POSTS= gql`
+query NewQuery($after: String = "") {
+  posts(after: $after, first: 10) {
+    nodes {
+      title
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+`
 
 
+export const COMMENTS_QUERY = gql`
+  query getAllUsers($cursor: String) {
+    users(first: 10, after: $cursor) {
+      _id
+      firstName
+      lastName
+      email
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
+    }
+  }
+`;

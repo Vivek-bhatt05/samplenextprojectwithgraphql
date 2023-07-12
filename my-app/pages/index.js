@@ -1,52 +1,66 @@
-import { GET_ALL_QUOTES, GET_ALL_USERS } from "@/gqlOperations/queries"
-import apolloClient from "@/lib/apolloclient"
-import { useQuery } from "@apollo/client"
-import { useEffect } from "react"
+import { useState } from 'react';
+import { useQuery } from '@apollo/client';
+
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { GET_ALL_POSTS } from '@/gqlOperations/queries';
+
 
 const Home = () => {
+  const [posts, setUsers] = useState([]);
+  const [endCursor, setEndCursor] = useState(null);
 
-    // console.log(props.quotes.quotes)
-    const { loading, error, data } = useQuery(GET_ALL_USERS, {
-        client: apolloClient,
+  const { data, loading, fetchMore } = useQuery(GET_ALL_POSTS, {
+    variables: {first: 10 ,after: endCursor },
+  });
+
+  console.log(data);
+  
+// setEndCursor(data?.posts?.pageInfo?.endCursor)
+  const handleLoadMore = () => {
+      if (!loading && data?.posts?.pageInfo?.hasNextPage) {
+      fetchMore({
+        variables: { first: 10, after: endCursor },
+        updateQuery: (prevResult, { fetchMoreResult }) => {
+          if (!fetchMoreResult) return prevResult;
+          setEndCursor(fetchMoreResult.posts.pageInfo.endCursor)
+          return {
+            posts: {
+                ...fetchMoreResult.posts,
+              nodes: [
+                ...prevResult.posts.nodes,
+                ...fetchMoreResult.posts.nodes,
+              ],
+            },
+          };
+        },
       });
-    
-      if (loading) return <div>Loading...</div>;
-      if (error) return <div>Error: {error.message}</div>;
-      if(data){
-        console.log(data)
-      }
+    }
+  };
 
+  if (loading && !data) {
+    return <p>Loading...</p>;
+  }
+
+  const fetchedUsers = data.posts.nodes || [];
+
+
+//   console.log(fetchedUsers,data.posts.pageInfo)
   return (
     <div>
-        {data.users.map((user)=>(
-           <blockquote key={user._id}>
-           <h2>{user.firstName}</h2>
-           <p>~{user.lastName}</p>
-         </blockquote> 
+      <InfiniteScroll
+        dataLength={posts.length}
+        next={handleLoadMore}
+        hasMore={data?.posts?.pageInfo?.hasNextPage}
+        loader={<h4>Loading...</h4>}
+      >
+        {fetchedUsers.map((user) => (
+          <div key={user.title}>
+            <p>{user.title}</p>
+          </div>
         ))}
+      </InfiniteScroll>
     </div>
-  )
-}
+  );
+};
 
-
-
-
-
-
-
-// export async function getStaticProps(){
-
-//     const { data } = await apolloClient.query({
-//         query: GET_ALL_QUOTES,
-//       });
-    
-  
-//     return {
-//       props: {
-//         quotes: data
-//       },
-//       revalidate:2
-//     }
-//   }
-
-export default Home
+export default Home;
