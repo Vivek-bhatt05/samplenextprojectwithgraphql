@@ -1,20 +1,20 @@
-import { getAllQuotesData } from "@/helpers/apicalling"
+import { GET_ALL_QUOTES } from "@/gqlOperations/queries"
+import apolloClient from "@/lib/apolloclient"
+import { useQuery } from "@apollo/client"
 import { useEffect } from "react"
 
 const Home = (props) => {
 
-    console.log(props.quotes)
+    // console.log(props.quotes.quotes)
 
   return (
     <div>
-         <blockquote>
-                <h2>Hello world</h2>
-                <p>~ram</p>
-            </blockquote>
-            <blockquote>
-                <h2>What things</h2>
-                <p>~ram</p>
-            </blockquote>
+        {props.quotes.quotes.map((quote)=>(
+           <blockquote key={quote.by._id}>
+           <h2>{quote.name}</h2>
+           <p>~{quote.by.firstName}</p>
+         </blockquote> 
+        ))}
     </div>
   )
 }
@@ -22,13 +22,16 @@ const Home = (props) => {
 
 export async function getStaticProps(){
 
-    const allData = await getAllQuotesData()
+    const { data } = await apolloClient.query({
+        query: GET_ALL_QUOTES,
+      });
+    
   
     return {
       props: {
-        quotes: allData
+        quotes: data
       },
-      revalidate:60
+      revalidate:2
     }
   }
 
