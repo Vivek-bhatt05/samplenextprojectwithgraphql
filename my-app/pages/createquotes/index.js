@@ -1,3 +1,4 @@
+import Navbar from '@/components/Navbar/nav'
 import React,{useState} from 'react'
 
 export default function CreateQuote() {
@@ -8,6 +9,7 @@ export default function CreateQuote() {
     }
     return (
         <div>
+            <Navbar />
             <form onSubmit={handleSubmit}>
                 <input 
                     type="text" 

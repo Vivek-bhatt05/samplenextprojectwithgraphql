@@ -1,13 +1,15 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 import styles from 'styles/main-header.module.css'
 
 
-function MainHeader (props) {
-    const { push } = useRouter();
+function Navbar () {
 
-    const {token}=props
+  const token = localStorage.getItem("token");
+  const { push } = useRouter();
+
 
   return (
     <header className={styles.header}>
@@ -37,20 +39,13 @@ function MainHeader (props) {
                 <Link href='/login'>Login</Link>
             </li>
             </>
-            }            
+            }
+            
+            
         </ul>
        </nav>
     </header>
   )
 }
 
-export async function getStaticProps() {
-        const token = localStorage.getItem("token");
-        return {
-            props: {
-              token : token
-            },
-          }
-  }
-
-export default MainHeader
+export default Navbar

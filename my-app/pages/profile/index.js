@@ -1,8 +1,10 @@
+import Navbar from '@/components/Navbar/nav'
 import React from 'react'
 
 export default function Profile() {
     return (
         <div>
+            <Navbar />
             <div>
                 <img className="circle" style={{border:"2px solid",marginTop:"10px"}} src="https://robohash.org/ram.png?size=200x200" alt="pic" />
                 <h3>Ramesh verma</h3>
