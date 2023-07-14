@@ -35,19 +35,3 @@ query NewQuery($after: String = "") {
   }
 }
 `
-
-
-// export const COMMENTS_QUERY = gql`
-//   query getAllUsers($cursor: String) {
-//     users(first: 10, after: $cursor) {
-//       _id
-//       firstName
-//       lastName
-//       email
-//       pageInfo {
-//         endCursor
-//         hasNextPage
-//       }
-//     }
-//   }
-// `;
