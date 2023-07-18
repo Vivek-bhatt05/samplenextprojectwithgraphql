@@ -38,88 +38,113 @@
 
 
 
-import { useState } from 'react';
-import { useQuery } from '@apollo/client';
+// import { useState } from 'react';
+// import { useQuery } from '@apollo/client';
 
-import InfiniteScroll from 'react-infinite-scroll-component';
-import { GET_ALL_POSTS } from '@/gqlOperations/queries';
+// import InfiniteScroll from 'react-infinite-scroll-component';
+// import { GET_ALL_POSTS } from '@/gqlOperations/queries';
 
+
+// const Home = () => {
+//   const [posts, setPosts] = useState({});
+//   const [endCursor, setEndCursor] = useState(null);
+// //   const [newPosts,setNewPosts]= useState();
+
+//   const { data, loading, fetchMore } = useQuery(GET_ALL_POSTS, {
+//     variables: {after: endCursor },
+//   });
+
+//   const handleLoadMore = () => {
+//       if (!loading && data?.posts?.pageInfo?.hasNextPage) {
+//       fetchMore({
+//         variables: {after: endCursor },
+//         updateQuery: (prevResult, { fetchMoreResult }) => {
+//           if (!fetchMoreResult) return prevResult;
+//           setEndCursor(fetchMoreResult.posts.pageInfo.endCursor);
+        
+//             setPosts(convertedObject)
+//           return Object.assign({}, prevResult, {
+//             posts: {
+//                 ...fetchMoreResult.posts,
+//               nodes: [
+//                 ...prevResult.posts.nodes,
+//                 ...fetchMoreResult.posts.nodes,
+//               ]
+//             },
+//            }
+//           )
+//         },
+//       });
+//     }
+//   };
+
+//   if (loading && !data) {
+//     return <p>Loading...</p>;
+//   }
+
+//   const fetchedPosts = data.posts || [];
+//   console.log(fetchedPosts)
+//   const newPosts = [posts,fetchedPosts]
+//   // const mergednewPosts= {...newPosts[0],...newPosts[1]};
+//   // const mergednewPosts= Object.assign({}, ...newPosts);
+
+//   function convertArrayToObject(array) {
+//     const resultObject = {};
+//     for (const obj of array) {
+//       for (const key in obj) {
+//         resultObject[key] = obj[key];
+//       }
+//     }
+//     return resultObject;
+//   }
+  
+//   const convertedObject = convertArrayToObject(newPosts);
+//   console.log(convertedObject);
+
+
+//   // console.log(mergednewPosts,"merged")
+//   console.log(newPosts,"new")
+
+
+// //   console.log(data.posts.nodes,data.posts.pageInfo)
+//   return (
+//     <div>
+//       <InfiniteScroll
+//         dataLength={fetchedPosts?.nodes?.length}
+//         next={handleLoadMore}
+//         hasMore={data?.posts?.pageInfo?.hasNextPage}
+//         loader={<h4>Loading...</h4>}
+//       >
+//         {fetchedPosts.nodes.map((user) => (
+//           <div key={user.title}>
+//             <h2>{user.title}</h2>
+//           </div>
+//         ))}
+//         {/* {
+//           newPosts.map((post)=> (
+//             post?.nodes?.map((user)=>(
+//               <div key={user.title}>
+//               <p>{user.title}</p>
+//             </div>
+//             ))
+//           )
+//           )
+//         } */}
+//       </InfiniteScroll>
+//     </div>
+//   );
+// };
+
+// export default Home; 
+
+
+
+import InfiniteScrollComponent from '../components/InfiniteScrollComponent';
 
 const Home = () => {
-  const [posts, setPosts] = useState({});
-  const [endCursor, setEndCursor] = useState(null);
-//   const [newPosts,setNewPosts]= useState();
-
-  const { data, loading, fetchMore } = useQuery(GET_ALL_POSTS, {
-    variables: {after: endCursor },
-  });
-
-  const handleLoadMore = () => {
-      if (!loading && data?.posts?.pageInfo?.hasNextPage) {
-      fetchMore({
-        variables: {after: endCursor },
-        updateQuery: (prevResult, { fetchMoreResult }) => {
-            // console.log(prevResult,"DFDSdsf");
-            // console.log(fetchMoreResult,"hello");
-          if (!fetchMoreResult) return prevResult;
-          setEndCursor(fetchMoreResult.posts.pageInfo.endCursor);
-          
-            // for(let i=0;i<newPosts.length;i++){
-            //     console.log(newPosts[i]);
-            //     let something={...newPosts[i]}
-            //     console.log(something)
-            //     setPosts(newPosts[i]);
-            // }
-            console.log(mergednewPosts,"hello owlrld")
-            setPosts(mergednewPosts)
-          return Object.assign({}, prevResult, {
-            posts: {
-                ...fetchMoreResult.posts,
-              nodes: [
-                ...prevResult.posts.nodes,
-                ...fetchMoreResult.posts.nodes,
-              ]
-            },
-           }
-          )
-        },
-      });
-    }
-  };
-
-  if (loading && !data) {
-    return <p>Loading...</p>;
-  }
-
-  const fetchedPosts = data.posts || [];
-  console.log(fetchedPosts)
-  const newPosts = [posts,fetchedPosts]
-//   const mergednewPosts= {...newPosts[0],...newPosts[1]};
-  const mergednewPosts= Object.assign({}, ...newPosts);
-  console.log(newPosts,"new")
-  console.log(mergednewPosts,"merged")
-
-
-//   console.log(data.posts.nodes,data.posts.pageInfo)
-  return (
-    <div>
-      <InfiniteScroll
-        dataLength={fetchedPosts?.nodes?.length}
-        next={handleLoadMore}
-        hasMore={data?.posts?.pageInfo?.hasNextPage}
-        loader={<h4>Loading...</h4>}
-      >
-        {fetchedPosts.nodes.map((user) => (
-          <div key={user.title}>
-            <p>{user.title}</p>
-          </div>
-        ))}
-      </InfiniteScroll>
-    </div>
-  );
+  return <InfiniteScrollComponent />;
 };
 
-export default Home; 
-
+export default Home;
 
 

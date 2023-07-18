@@ -23,7 +23,7 @@ query getAllUsers{
 `
 export const GET_ALL_POSTS= gql`
 query NewQuery($after: String = "") {
-  posts(after: $after, first: 20) {
+  posts(after: $after, first: 10) {
     nodes {
       databaseId
       title
